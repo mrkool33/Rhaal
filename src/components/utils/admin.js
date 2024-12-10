@@ -81,6 +81,7 @@ const Admin = () => {
     };
     dispatch(addLocation(locationData));
     console.log(formData);
+    alert("location added successfully!");
   };
 
   const handleRentItemSubmit = (e) => {
