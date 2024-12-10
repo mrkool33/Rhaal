@@ -1,0 +1,190 @@
+/* Ensures the entire container covers the viewport */
+.signin-page, .h-100 {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  /* Left Section */
+  .left-section {
+    background-color: #FFF6EF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    height: 100%; /* Full height of the viewport */
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .form-container .form-label-left {
+    text-align: left;
+    display: block;
+    width: 100%;
+    font-weight: bold; /* Optional: to make the label more noticeable */
+    margin-bottom: 0.5rem; /* Adds some spacing below the label */
+  }
+  
+  .input-icon {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+  }
+  
+  .input-icon .form-control {
+    padding-left: 2.5rem;
+    border-radius: 1rem;
+    border: 1px solid #ddd;
+  }
+  
+  .forgot-password {
+    display: block;
+    text-align: right;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  .signin-button {
+    width: 100%;
+    background-color: #F79E52;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 0.5rem;
+    transition: 0.3s;
+  }
+  
+  .signin-button:hover {
+    background-color: #e17c3b;
+  }
+  
+  /* Right Section */
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Background rectangle image styling */
+  .background-image {
+    position: absolute;
+    width: 60%; /* Adjust this to control the size of the rectangle */
+    height: auto;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the image */
+    z-index: 1; /* Places the background image behind the illustration */
+  }
+  
+  /* Illustration container styling */
+  .illustration-container {
+    position: relative;
+    z-index: 2; /* Ensures the illustration is in front of the background image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .illustration {
+    width: 80%; /* Adjust as needed */
+    height: auto;
+  }
+  
+  /* Styling the checkbox container */
+.signup-checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  /* Styling the label */
+  .signup-checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  /* Checkbox styling */
+  .signup-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    accent-color: #F79E52; /* Modern browsers support accent color */
+  }
+  
+  /* Text styling */
+  .signup-text {
+    margin-left: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  /* Link styling */
+  .signup-link {
+    color: #F79E52;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 0.3rem;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+  
+
+  .back-arrow {
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .back-arrow:hover {
+    color: #007bff; /* Optional hover effect */
+  }
