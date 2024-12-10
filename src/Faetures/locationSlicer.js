@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const initValue = {
     message: "",
-    location:{},
+    location:[],
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -22,7 +22,19 @@ export const addLocation = createAsyncThunk(
         }
     }
 );
-
+export const GetLocation = createAsyncThunk(
+    "locations/GetLocation",
+    async () => {
+      try {
+        const response = await axios.get(
+          "http://127.0.0.1:8080/GetLocation"
+        );
+        return response.data.location; // Return response data on success
+      } catch (error) {
+        return (error.response.data); // Handle error properly
+      }
+    }
+  );
 
 // Create slice
 const LocationSlice = createSlice({
@@ -43,7 +55,20 @@ const LocationSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload; // Capture error message
-            });
+            })
+            .addCase(GetLocation.pending, (state) => {
+                state.isLoading = true;
+              })
+              .addCase(GetLocation.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.location = action.payload;
+              })
+              .addCase(GetLocation.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload; // Capture error message
+              });
         }
     });
     
