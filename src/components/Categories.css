@@ -1,0 +1,51 @@
+/* Categories Section */
+.categories-section {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .categories-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  /* Categories Grid */
+  .categories-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Category Card */
+  .category-card {
+    width: 250px;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Icon Styling */
+  .category-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Category Name */
+  .category-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  

@@ -1,0 +1,92 @@
+/* General styles for the page */
+.beach-page {
+    font-family: "Arial", sans-serif;
+  }
+  
+  /* Header Section */
+  .header-section {
+    background-image: url("https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ports-and-destinations/ports/salalah-oman/overview/view-mountains-sea-al-mughsail-salalah-sultanate-oman.jpg?$1440x600$");
+    background-size: cover;
+    background-position: center;
+    height: 700px;
+    position: relative;
+  }
+  
+  .header-section .overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-form {
+    display: flex;
+    gap: 10px;
+    max-width: 2000px; /* Set a wider max width for the form */
+    width: 100%;
+  }
+  
+  .search-input {
+    flex: 1; /* Allow it to grow */
+    flex-basis: 70%; /* Longer base width */
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px; /* Optional: Increase font size for better readability */
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #ff9e42;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  
+  .search-button:hover {
+    background-color: #ff7f00;
+  }
+  
+  /* Content Section */
+  .content-section {
+    margin-top: -50px; /* Pull content closer to header */
+    padding: 20px 0;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .destination-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  
+  .destination-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .destination-image {
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .destination-card .card-body {
+    text-align: center;
+  }
+  
