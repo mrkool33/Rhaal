@@ -31,7 +31,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/discover" element={<Discover />} />
-        <Route path="/discoverdetaisls" element={<DiscoverDetails />} />
+        <Route path="/discoverdetaisls/:id" element={<DiscoverDetails />} />
       </Routes>
     </div>
   );

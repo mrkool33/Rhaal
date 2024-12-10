@@ -5,11 +5,16 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useSelector ,useDispatch} from "react-redux";
 import { GetLocation } from "../Faetures/locationSlicer";
+import { useNavigate } from "react-router-dom";
 
 
 const Discover = () => {
   const dispatch=useDispatch();
   const destinations = useSelector((state)=>state.locations.location)
+  const navigate=useNavigate();
+  const handleCardClick = (destination) => {
+    navigate(`/discoverdetaisls/${destination.id}`, { state: { destination } });
+  };
   //filter the output to show only destination
   const filteredDestinations = destinations.filter(
     (destination) => destination.category === "Beaches"
@@ -52,9 +57,9 @@ const Discover = () => {
         <br/> <br/>
         <h3 className="section-title">Beach Destinations</h3>
         <Row>
-          {filteredDestinations.map((destination, index) => (
-            <Col md={3} sm={6} key={index} className="mb-4">
-              <Card className="destination-card">
+          {filteredDestinations.map((destination) => (
+            <Col md={3} sm={6} key={destination._id} className="mb-4">
+              <Card className="destination-card" onClick={()=>handleCardClick(destination)}>
                 <Card.Img
                   variant="top"
                   src={destination.url}
@@ -79,9 +84,9 @@ const Discover = () => {
         <br/> <br/>
         <h3 className="section-title">Mountains Destinations</h3>
         <Row>
-          {filteredDestinationsMountains.map((destination, index) => (
-            <Col md={3} sm={6} key={index} className="mb-4">
-              <Card className="destination-card">
+          {filteredDestinationsMountains.map((destination) => (
+            <Col md={3} sm={6} key={destination._id} className="mb-4">
+              <Card className="destination-card" onClick={()=>handleCardClick(destination)}>
                 <Card.Img
                   variant="top"
                   src={destination.url}
@@ -106,9 +111,9 @@ const Discover = () => {
         <br/> <br/>
         <h3 className="section-title">Caves Destinations</h3>
         <Row>
-          {filteredDestinationsCaves.map((destination, index) => (
-            <Col md={3} sm={6} key={index} className="mb-4">
-              <Card className="destination-card">
+          {filteredDestinationsCaves.map((destination) => (
+            <Col md={3} sm={6} key={destination._id} className="mb-4">
+              <Card className="destination-card" onClick={()=>handleCardClick(destination)}>
                 <Card.Img
                   variant="top"
                   src={destination.url}
@@ -133,9 +138,9 @@ const Discover = () => {
         <br/> <br/>
         <h3 className="section-title">Historical Sites Destinations</h3>
         <Row>
-          {filteredDestinationsHistoricalSites.map((destination, index) => (
-            <Col md={3} sm={6} key={index} className="mb-4">
-              <Card className="destination-card">
+          {filteredDestinationsHistoricalSites.map((destination) => (
+            <Col md={3} sm={6} key={destination._id} className="mb-4">
+              <Card className="destination-card" onClick={()=>handleCardClick(destination)}>
                 <Card.Img
                   variant="top"
                   src={destination.url}

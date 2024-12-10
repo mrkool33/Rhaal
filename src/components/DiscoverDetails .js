@@ -1,12 +1,14 @@
 import React from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./DiscoverDetails.css";
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 const DiscoverDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { destination } = location.state;
 
   const equipment = [
     { name: "Tent", price: "5 Riyal", image: "https://via.placeholder.com/100" },
@@ -38,16 +40,16 @@ const DiscoverDetails = () => {
 
       {/* Title Section */}
       <div className="title-section">
-        <h1>Ain Al Kasfa</h1>
-        <span className="rating">★★★★★</span>
-        <p className="location">📍 Rustaq</p>
+        <h1>{destination.state}</h1>
+        <span className="rating">★★★★★{destination.rating}</span>
+        <p className="location">📍 {destination.city}</p>
       </div>
 
       {/* Image Section */}
       <div className="image-section">
         <img
-          src="https://via.placeholder.com/800x400"
-          alt="Ain Al Kasfa"
+          src={destination.url}
+          alt={destination.state}
           className="main-image"
         />
       </div>
@@ -56,10 +58,7 @@ const DiscoverDetails = () => {
       <div className="overview-section">
         <h2>Overview</h2>
         <p>
-          This hot spring, which bubbles up below the water, flows from under
-          the ground at Al Kasfa with therapeutic properties. As a result, the
-          spring has numerous public baths. Being a major tourist attraction,
-          it is equipped with modern medical facilities.
+          {destination.discrypter}
         </p>
       </div>
 
