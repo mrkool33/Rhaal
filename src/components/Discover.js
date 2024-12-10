@@ -1,38 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import "./Discover.css"; 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { useSelector ,useDispatch} from "react-redux";
+import { GetLocation } from "../Faetures/locationSlicer";
 
 
 const Discover = () => {
-  const destinations = [
-    {
-      name: "Al-Mughsail Beach",
-      image: "https://via.placeholder.com/150",
-      rating: "4.7",
-      category: "Beach",
-    },
-    {
-      name: "Sifah Beach",
-      image: "https://via.placeholder.com/150",
-      rating: "4.9",
-      category: "Beach",
-    },
-    {
-      name: "Qurum Beach",
-      image: "https://via.placeholder.com/150",
-      rating: "4.5",
-      category: "Beach",
-    },
-    {
-      name: "Ras Al Jinz Beach",
-      image: "https://via.placeholder.com/150",
-      rating: "4.9",
-      category: "Beach",
-    },
-  ];
-
+  const dispatch=useDispatch();
+  const destinations = useSelector((state)=>state.locations.location)
+  //filter the output to show only destination
+  const filteredDestinations = destinations.filter(
+    (destination) => destination.category === "Beaches"
+  );
+  const filteredDestinationsMountains = destinations.filter(
+    (destination) => destination.category === "Mountains"
+  );
+  const filteredDestinationsCaves = destinations.filter(
+    (destination) => destination.category === "Caves"
+  );
+  const filteredDestinationsHistoricalSites = destinations.filter(
+    (destination) => destination.category === "Historical Sites"
+  );
+  useEffect(()=>{
+    dispatch(GetLocation());
+  })
   return (
     <>
     <Navbar />
@@ -59,17 +52,98 @@ const Discover = () => {
         <br/> <br/>
         <h3 className="section-title">Beach Destinations</h3>
         <Row>
-          {destinations.map((destination, index) => (
+          {filteredDestinations.map((destination, index) => (
             <Col md={3} sm={6} key={index} className="mb-4">
               <Card className="destination-card">
                 <Card.Img
                   variant="top"
-                  src={destination.image}
-                  alt={destination.name}
+                  src={destination.url}
+                  alt={destination.state}
                   className="destination-image"
                 />
                 <Card.Body>
-                  <Card.Title>{destination.name}</Card.Title>
+                  <Card.Title>{destination.state}</Card.Title>
+                  <Card.Text>
+                    <span>⭐ {destination.rating}</span>
+                    <br />
+                    <span>Category: {destination.category}</span>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+      {/* mountains Destinations Section */}
+      <Container className="content-section">
+        <br/> <br/>
+        <h3 className="section-title">Mountains Destinations</h3>
+        <Row>
+          {filteredDestinationsMountains.map((destination, index) => (
+            <Col md={3} sm={6} key={index} className="mb-4">
+              <Card className="destination-card">
+                <Card.Img
+                  variant="top"
+                  src={destination.url}
+                  alt={destination.state}
+                  className="destination-image"
+                />
+                <Card.Body>
+                  <Card.Title>{destination.state}</Card.Title>
+                  <Card.Text>
+                    <span>⭐ {destination.rating}</span>
+                    <br />
+                    <span>Category: {destination.category}</span>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+      {/* Caves Destinations Section */}
+      <Container className="content-section">
+        <br/> <br/>
+        <h3 className="section-title">Caves Destinations</h3>
+        <Row>
+          {filteredDestinationsCaves.map((destination, index) => (
+            <Col md={3} sm={6} key={index} className="mb-4">
+              <Card className="destination-card">
+                <Card.Img
+                  variant="top"
+                  src={destination.url}
+                  alt={destination.state}
+                  className="destination-image"
+                />
+                <Card.Body>
+                  <Card.Title>{destination.state}</Card.Title>
+                  <Card.Text>
+                    <span>⭐ {destination.rating}</span>
+                    <br />
+                    <span>Category: {destination.category}</span>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+      {/* Historical Sites Destinations Section */}
+      <Container className="content-section">
+        <br/> <br/>
+        <h3 className="section-title">Historical Sites Destinations</h3>
+        <Row>
+          {filteredDestinationsHistoricalSites.map((destination, index) => (
+            <Col md={3} sm={6} key={index} className="mb-4">
+              <Card className="destination-card">
+                <Card.Img
+                  variant="top"
+                  src={destination.url}
+                  alt={destination.state}
+                  className="destination-image"
+                />
+                <Card.Body>
+                  <Card.Title>{destination.state}</Card.Title>
                   <Card.Text>
                     <span>⭐ {destination.rating}</span>
                     <br />
