@@ -218,6 +218,7 @@ const Admin = () => {
                       prompt("Enter new Email", accountData.email)
                     )
                   }
+                  disabled
                 >
                   ✏ Change
                 </Button>
@@ -238,6 +239,7 @@ const Admin = () => {
                       prompt("Enter new Phone Number", accountData.phoneNumber)
                     )
                   }
+                  disabled
                 >
                   ✏ Change
                 </Button>
