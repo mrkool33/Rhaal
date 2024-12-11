@@ -1,17 +1,32 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Tab, Nav } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Tab,
+  Nav,
+  Card,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../../Faetures/UserSlicer";
 import profile from "../../assets/profile.jpg";
-import { addLocation } from "../../Faetures/locationSlicer";
+import {
+  addLocation,
+  deleteLocation,
+  GetLocation,
+} from "../../Faetures/locationSlicer";
 import { addItems } from "../../Faetures/itemsSlicer";
+import { FaEdit, FaTrash } from "react-icons/fa";
 const Admin = () => {
+  //declearing values
   let { profileImg, role, ufname, ulname, email, phone, _id } = useSelector(
     (state) => state.usersInfo.user
   );
   const msg = useSelector((state) => state.usersInfo.message);
   const dispatch = useDispatch();
-
+  const destinations = useSelector((state) => state.locations.location);
   // Account data
   const [accountData, setAccountData] = useState({
     userID: _id,
@@ -97,6 +112,16 @@ const Admin = () => {
     alert("Rent item added successfully!");
   };
 
+  const handleDelete = (locationID) => {
+    dispatch(deleteLocation(locationID));
+    dispatch(GetLocation());
+  };
+
+  const handleEdit = (destination) => {};
+
+  const handelRefresh = () => {
+    dispatch(GetLocation());
+  };
   return (
     <Container className="my-4">
       {/* Profile Section */}
@@ -373,6 +398,56 @@ const Admin = () => {
               >
                 Add Site
               </Button>
+
+              <Container className="content-section">
+                <br /> <br />
+                <br />
+                <h3 className="section-title">All Destinations</h3>
+                <Row>
+                  <Row>
+                    <Col>
+                      <Button variant="outline-primary" onClick={handelRefresh}>
+                        Refresh
+                      </Button>
+                      <p></p>
+                    </Col>
+                  </Row>
+                  {destinations.map((destination) => (
+                    <Col md={3} sm={6} key={destination._id} className="mb-4">
+                      <Card className="destination-card">
+                        <Card.Img
+                          variant="top"
+                          src={destination.url}
+                          alt={destination.state}
+                          className="destination-image"
+                        />
+                        <Card.Body>
+                          <Card.Title>{destination.state}</Card.Title>
+                          <Card.Text>
+                            <span>⭐ {destination.rating}</span>
+                            <br />
+                            <span>Category: {destination.category}</span>
+                          </Card.Text>
+                          <div className="d-flex justify-content-end">
+                            <FaEdit
+                              size={20}
+                              className="text-primary me-3 cursor-pointer"
+                              onClick={() => handleEdit(destination)}
+                              title="Edit"
+                            />
+                            <FaTrash
+                              size={20}
+                              className="text-danger cursor-pointer"
+                              onClick={() => handleDelete(destination._id)}
+                              title="Delete"
+                            />
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
             </Form>
           </Tab.Pane>
 
