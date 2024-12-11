@@ -155,7 +155,7 @@ const Admin = () => {
             <Nav.Link eventKey="account">Account</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="addItems">Add Items</Nav.Link>
+            <Nav.Link eventKey="addItems">Add location</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link eventKey="addRentItems">Add Rent Items</Nav.Link>
