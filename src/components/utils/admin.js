@@ -17,7 +17,7 @@ import {
   deleteLocation,
   GetLocation,
 } from "../../Faetures/locationSlicer";
-import { addItems } from "../../Faetures/itemsSlicer";
+import { addItems, deleteItem, GetItem } from "../../Faetures/itemsSlicer";
 import { FaEdit, FaTrash } from "react-icons/fa";
 const Admin = () => {
   //declearing values
@@ -27,6 +27,8 @@ const Admin = () => {
   const msg = useSelector((state) => state.usersInfo.message);
   const dispatch = useDispatch();
   const destinations = useSelector((state) => state.locations.location);
+  const Items = useSelector((state) => state.items.Item);
+
   // Account data
   const [accountData, setAccountData] = useState({
     userID: _id,
@@ -82,7 +84,7 @@ const Admin = () => {
     dispatch(updateUser(user));
     alert("updated");
   };
-  const handleSiteSubmit = (e) => {
+  const handleSiteSubmit = async (e) => {
     e.preventDefault();
     const locationData = {
       url: formData.image,
@@ -94,12 +96,13 @@ const Admin = () => {
       category: formData.category,
       rating: formData.rating,
     };
-    dispatch(addLocation(locationData));
+    await dispatch(addLocation(locationData));
     console.log(formData);
     alert("location added successfully!");
+    dispatch(GetLocation());
   };
 
-  const handleRentItemSubmit = (e) => {
+  const handleRentItemSubmit = async (e) => {
     e.preventDefault();
     console.log(rentItemData);
     const item = {
@@ -108,19 +111,25 @@ const Admin = () => {
       price: rentItemData.price,
       description: rentItemData.description,
     };
-    dispatch(addItems(item));
+    await dispatch(addItems(item));
     alert("Rent item added successfully!");
+    dispatch(GetItem());
   };
 
-  const handleDelete = (locationID) => {
-    dispatch(deleteLocation(locationID));
+  const handleLocationDelete = async (locationID) => {
+    await dispatch(deleteLocation(locationID));
     dispatch(GetLocation());
+  };
+  const handleItemDelete = async (itemID) => {
+    await dispatch(deleteItem(itemID));
+    dispatch(GetItem());
   };
 
   const handleEdit = (destination) => {};
 
   const handelRefresh = () => {
     dispatch(GetLocation());
+    dispatch(GetItem());
   };
   return (
     <Container className="my-4">
@@ -438,7 +447,9 @@ const Admin = () => {
                             <FaTrash
                               size={20}
                               className="text-danger cursor-pointer"
-                              onClick={() => handleDelete(destination._id)}
+                              onClick={() =>
+                                handleLocationDelete(destination._id)
+                              }
                               title="Delete"
                             />
                           </div>
@@ -510,6 +521,56 @@ const Admin = () => {
               >
                 Add Item
               </Button>
+
+              <Container className="content-section">
+                <br /> <br />
+                <br />
+                <h3 className="section-title">All Destinations</h3>
+                <Row>
+                  <Row>
+                    <Col>
+                      <Button variant="outline-primary" onClick={handelRefresh}>
+                        Refresh
+                      </Button>
+                      <p></p>
+                    </Col>
+                  </Row>
+                  {Items.map((Items) => (
+                    <Col md={3} sm={6} key={Items._id} className="mb-4">
+                      <Card className="destination-card">
+                        <Card.Img
+                          variant="top"
+                          src={Items.url}
+                          alt={Items.Iname}
+                          className="destination-image"
+                        />
+                        <Card.Body>
+                          <Card.Title>{Items.Iname}</Card.Title>
+                          <Card.Text>
+                            <span> {Items.price} OMR</span>
+                            <br />
+                            <span>description: {Items.description}</span>
+                          </Card.Text>
+                          <div className="d-flex justify-content-end">
+                            <FaEdit
+                              size={20}
+                              className="text-primary me-3 cursor-pointer"
+                              onClick={() => handleEdit()}
+                              title="Edit"
+                            />
+                            <FaTrash
+                              size={20}
+                              className="text-danger cursor-pointer"
+                              onClick={() => handleItemDelete(Items._id)}
+                              title="Delete"
+                            />
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
             </Form>
           </Tab.Pane>
         </Tab.Content>

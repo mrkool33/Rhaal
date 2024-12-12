@@ -39,7 +39,7 @@ export const deleteLocation = createAsyncThunk(
   async (locationID) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8080/deleteUser/${locationID}`
+        `http://127.0.0.1:8080/deleteLocation/${locationID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {

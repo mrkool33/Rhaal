@@ -23,16 +23,24 @@ export const addItems = createAsyncThunk(
     }
   }
 );
-export const GetItem = createAsyncThunk(
-  "locations/GetItem",
-  async () => {
+export const GetItem = createAsyncThunk("items/GetItem", async () => {
+  try {
+    const response = await axios.get("http://127.0.0.1:8080/GetItem");
+    return response.data.Item; // Return response data on success
+  } catch (error) {
+    return error.response.data; // Handle error properly
+  }
+});
+export const deleteItem = createAsyncThunk(
+  "items/deleteItem",
+  async (ItemID) => {
     try {
-      const response = await axios.get(
-        "http://127.0.0.1:8080/GetItem"
+      const response = await axios.delete(
+        `http://127.0.0.1:8080/deleteItem/${ItemID}`
       );
-      return response.data.Item; // Return response data on success
+      return response.data.message; // Return response data of user only
     } catch (error) {
-      return (error.response.data); // Handle error properly
+      return error.response.data; // Handle error properly
     }
   }
 );
@@ -65,6 +73,19 @@ const ItemSlice = createSlice({
         state.Item = action.payload;
       })
       .addCase(GetItem.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload; // Capture error message
+      })
+      .addCase(deleteItem.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteItem.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = "deleted...";
+      })
+      .addCase(deleteItem.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload; // Capture error message
