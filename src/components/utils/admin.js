@@ -525,7 +525,7 @@ const Admin = () => {
               <Container className="content-section">
                 <br /> <br />
                 <br />
-                <h3 className="section-title">All Destinations</h3>
+                <h3 className="section-title">All Items</h3>
                 <Row>
                   <Row>
                     <Col>
