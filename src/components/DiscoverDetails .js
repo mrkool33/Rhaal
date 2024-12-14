@@ -53,7 +53,7 @@ const DiscoverDetails = () => {
         <div className="map-section">
           <h2>Location/Map</h2>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.0594921577554!2d56.7485743!3d23.3908446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e91ff4c7e55cb13%3A0x4c29c29029d5cc10!2sAin%20Al%20Kasfa!5e0!3m2!1sen!2som!4v1696551366922!5m2!1sen!2som"
+            src={`https://maps.google.com/maps?q=${destination.lat},${destination.lng}&h1=es;&output=embed`}
             width="100%"
             height="300"
             style={{ border: 0 }}
@@ -61,7 +61,6 @@ const DiscoverDetails = () => {
             loading="lazy"
             title="Location Map"
           ></iframe>
-          <Button className="orange-button mt-3">View on Google Maps</Button>
         </div>
 
         {/* Equipment Section */}
