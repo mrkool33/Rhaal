@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Button, Tab, Nav } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Tab,
+  Nav,
+  Modal,
+} from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import profile from "../../assets/profile.jpg";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,6 +30,9 @@ const User = () => {
     phoneNumber: phone,
   });
   let [userID, setId] = useState(_id);
+  const [editField, setEditField] = useState(null); // Field to edit
+  const [showEditModal, setShowEditModal] = useState(false); // Modal visibility
+  const [newValue, setNewValue] = useState(""); // New value for the field
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,10 +41,17 @@ const User = () => {
     register,
     handleSubmit: submitForm,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(ProfileValidations) });
+  } = useForm({
+    resolver: yupResolver(ProfileValidations),
+    context: { editField },
+  });
   // Handle account data change
-  const handleAccountChange = (field, value) => {
-    setAccountData({ ...accountData, [field]: value });
+  const handleModalSave = () => {
+    if (editField) {
+      setAccountData({ ...accountData, [editField]: newValue });
+      setEditField(null);
+      setShowEditModal(false);
+    }
   };
 
   // Handle form submissions
@@ -69,7 +88,7 @@ const User = () => {
       navigate("/login");
     }
   }, [email]);
-  const [rentedItems] = useState([
+  const [bookingItems] = useState([
     {
       id: 1,
       name: "Life Jacket",
@@ -141,7 +160,7 @@ const User = () => {
             <Nav.Link eventKey="account">Account</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="rentedItems">Rented Items</Nav.Link>
+            <Nav.Link eventKey="bookingItems">booking </Nav.Link>
           </Nav.Item>
         </Nav>
 
@@ -157,12 +176,11 @@ const User = () => {
               <Col md={4} className="text-end">
                 <Button
                   variant="outline-primary"
-                  onClick={() =>
-                    handleAccountChange(
-                      "firstName",
-                      prompt("Enter new First Name", accountData.firstName)
-                    )
-                  }
+                  onClick={() => {
+                    setEditField("firstName");
+                    setNewValue(accountData.firstName);
+                    setShowEditModal(true);
+                  }}
                 >
                   ✏ Change
                 </Button>
@@ -176,12 +194,11 @@ const User = () => {
               <Col md={4} className="text-end">
                 <Button
                   variant="outline-primary"
-                  onClick={() =>
-                    handleAccountChange(
-                      "lastName",
-                      prompt("Enter new Last Name", accountData.lastName)
-                    )
-                  }
+                  onClick={() => {
+                    setEditField("lastName");
+                    setNewValue(accountData.lastName);
+                    setShowEditModal(true);
+                  }}
                 >
                   ✏ Change
                 </Button>
@@ -196,12 +213,11 @@ const User = () => {
                 <Button
                   disabled
                   variant="outline-primary"
-                  onClick={() =>
-                    handleAccountChange(
-                      "email",
-                      prompt("Enter new Email", accountData.email)
-                    )
-                  }
+                  onClick={() => {
+                    setEditField("email");
+                    setNewValue(accountData.email);
+                    setShowEditModal(true);
+                  }}
                 >
                   ✏ Change
                 </Button>
@@ -217,12 +233,11 @@ const User = () => {
                 <Button
                   disabled
                   variant="outline-primary"
-                  onClick={() =>
-                    handleAccountChange(
-                      "phoneNumber",
-                      prompt("Enter new Phone Number", accountData.phoneNumber)
-                    )
-                  }
+                  onClick={() => {
+                    setEditField("phoneNumber");
+                    setNewValue(accountData.phoneNumber);
+                    setShowEditModal(true);
+                  }}
                 >
                   ✏ Change
                 </Button>
@@ -245,10 +260,10 @@ const User = () => {
             </Row>
           </Tab.Pane>
 
-          {/* Rented Items */}
-          <Tab.Pane eventKey="rentedItems">
+          {/* Booking */}
+          <Tab.Pane eventKey="bookingItems">
             <Row>
-              {rentedItems.map((item) => (
+              {bookingItems.map((item) => (
                 <Col key={item.id} sm={12} md={4} className="text-center mb-4">
                   <img
                     src={item.image}
@@ -267,6 +282,37 @@ const User = () => {
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
+
+      {/* Edit Modal */}
+      <Modal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Edit {editField}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>New Value</Form.Label>
+              <Form.Control
+                type="text"
+                value={newValue}
+                onChange={(e) => setNewValue(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleModalSave}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
