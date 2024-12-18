@@ -438,12 +438,7 @@ const Admin = () => {
                             <span>Category: {destination.category}</span>
                           </Card.Text>
                           <div className="d-flex justify-content-end">
-                            <FaEdit
-                              size={20}
-                              className="text-primary me-3 cursor-pointer"
-                              onClick={() => handleEdit(destination)}
-                              title="Edit"
-                            />
+                           
                             <FaTrash
                               size={20}
                               className="text-danger cursor-pointer"
@@ -552,12 +547,7 @@ const Admin = () => {
                             <span>description: {Items.description}</span>
                           </Card.Text>
                           <div className="d-flex justify-content-end">
-                            <FaEdit
-                              size={20}
-                              className="text-primary me-3 cursor-pointer"
-                              onClick={() => handleEdit()}
-                              title="Edit"
-                            />
+                            
                             <FaTrash
                               size={20}
                               className="text-danger cursor-pointer"
