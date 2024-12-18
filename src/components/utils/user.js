@@ -34,6 +34,7 @@ const User = () => {
   const [showEditModal, setShowEditModal] = useState(false); // Modal visibility
   const [newValue, setNewValue] = useState(""); // New value for the field
   const [errors, setErrors] = useState({});
+  const [rentedItems, setRentedItems] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -99,6 +100,12 @@ const User = () => {
   useEffect(() => {
     if (!email) {
       navigate("/login");
+    }
+    const storedItems = localStorage.getItem("rentedEquipment");
+
+    if (storedItems) {
+      // Parse the JSON string back to an array
+      setRentedItems(JSON.parse(storedItems));
     }
   }, [email]);
   const [bookingItems] = useState([
@@ -275,23 +282,31 @@ const User = () => {
 
           {/* Booking */}
           <Tab.Pane eventKey="bookingItems">
-            <Row>
-              {bookingItems.map((item) => (
-                <Col key={item.id} sm={12} md={4} className="text-center mb-4">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    style={{
-                      width: "150px",
-                      height: "150px",
-                      objectFit: "cover",
-                      borderRadius: "8px",
-                    }}
-                  />
-                  <p className="mt-2">{item.name}</p>
-                </Col>
-              ))}
-            </Row>
+            <Col sm={12} md={4} className="text-center mb-4">
+              <div>
+                <h1>Rented Items</h1>
+                {rentedItems.length === 0 ? (
+                  <p>No items rented yet.</p>
+                ) : (
+                  <Row>
+                    <ul>
+                      {rentedItems.map((item, index) => (
+                        <li key={index}>
+                          <h3>{item.itemName}</h3>
+                          <p>Price: {item.price} OMR</p>
+                          <p>{item.description}</p>
+                          <img
+                            src={item.image}
+                            alt={item.itemName}
+                            width="100"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </Row>
+                )}
+              </div>
+            </Col>
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
