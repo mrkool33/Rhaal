@@ -24,8 +24,12 @@ const Discover = () => {
   const filteredDestinationsCaves = destinations.filter(
     (destination) => destination.category === "Caves"
   );
-  const filteredDestinationsHistoricalSites = destinations.filter(
-    (destination) => destination.category === "Historical Sites"
+  const filteredDestinationsHotSprings = destinations.filter(
+    (destination) => destination.category === "Hot Springs"
+  );
+
+  const filteredDestinationsDesertnature = destinations.filter(
+    (destination) => destination.category === "Desert nature"
   );
   useEffect(() => {
     dispatch(GetLocation());
@@ -143,12 +147,42 @@ const Discover = () => {
             ))}
           </Row>
         </Container>
+         {/* Caves Destinations Section */}
+         <Container className="content-section">
+          <br /> <br />
+          <h3 className="section-title">Desert nature</h3>
+          <Row>
+            {filteredDestinationsDesertnature.map((destination) => (
+              <Col md={3} sm={6} key={destination._id} className="mb-4">
+                <Card
+                  className="destination-card"
+                  onClick={() => handleCardClick(destination)}
+                >
+                  <Card.Img
+                    variant="top"
+                    src={destination.url}
+                    alt={destination.state}
+                    className="destination-image"
+                  />
+                  <Card.Body>
+                    <Card.Title>{destination.state}</Card.Title>
+                    <Card.Text>
+                      <span>⭐ {destination.rating}</span>
+                      <br />
+                      <span>Category: {destination.category}</span>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
         {/* Historical Sites Destinations Section */}
         <Container className="content-section">
           <br /> <br />
-          <h3 className="section-title">Historical Sites Destinations</h3>
+          <h3 className="section-title">Hot Springs</h3>
           <Row>
-            {filteredDestinationsHistoricalSites.map((destination) => (
+            {filteredDestinationsHotSprings.map((destination) => (
               <Col md={3} sm={6} key={destination._id} className="mb-4">
                 <Card
                   className="destination-card"

@@ -394,7 +394,8 @@ const Admin = () => {
                   <option value="Caves">Caves</option>
                   <option value="Beaches">Beaches</option>
                   <option value="Mountains">Mountains</option>
-                  <option value="Historical Sites">Historical Sites</option>
+                  <option value="Hot Springs">Hot Springs</option>
+                  <option value="Desert nature">Desert nature</option>
                 </Form.Control>
               </Form.Group>
               <Button
