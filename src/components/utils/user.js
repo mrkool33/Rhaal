@@ -33,23 +33,36 @@ const User = () => {
   const [editField, setEditField] = useState(null); // Field to edit
   const [showEditModal, setShowEditModal] = useState(false); // Modal visibility
   const [newValue, setNewValue] = useState(""); // New value for the field
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   //validations
-  const {
-    register,
-    handleSubmit: submitForm,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(ProfileValidations),
-    context: { editField },
-  });
+  const validateInput = (field, value) => {
+    let error = "";
+    if (!value.trim()) {
+      error = `${field} cannot be empty`;
+    } else if (field === "firstName" || field === "lastName") {
+      if (value.length > 15) {
+        error = "Maximum 15 characters allowed";
+      }
+    } else if (field === "phoneNumber") {
+      if (!/^(9|7)\d*$/.test(value)) {
+        error = "Phone number must start with 9 or 7";
+      } else if (value.length < 8) {
+        error = "Phone number must be at least 8 digits";
+      }
+    }
+    return error;
+  };
   // Handle account data change
   const handleModalSave = () => {
-    if (editField) {
+    const error = validateInput(editField, newValue);
+    if (error) {
+      setErrors({ [editField]: error }); // Set errors dynamically
+    } else {
+      setErrors({});
       setAccountData({ ...accountData, [editField]: newValue });
-      setEditField(null);
       setShowEditModal(false);
     }
   };
@@ -300,7 +313,11 @@ const User = () => {
                 type="text"
                 value={newValue}
                 onChange={(e) => setNewValue(e.target.value)}
+                isInvalid={!!errors[editField]} // Dynamically show validation errors
               />
+              <Form.Control.Feedback type="invalid">
+                {errors[editField]}
+              </Form.Control.Feedback>
             </Form.Group>
           </Form>
         </Modal.Body>
