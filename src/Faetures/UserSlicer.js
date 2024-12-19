@@ -4,7 +4,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-require("dotenv").config();
+
 const initValue = {
   message: "",
   user: {},
