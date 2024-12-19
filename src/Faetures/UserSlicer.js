@@ -19,7 +19,7 @@ export const addUser = createAsyncThunk(
   async (userDatas, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/inserUser",
+        `${process.env.REACT_APP_API_BASE_URL}/inserUser`,
         userDatas
       );
       return response.data; // Return response data on success
@@ -33,10 +33,13 @@ export const GetUser = createAsyncThunk(
   "usersInfo/GetUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://127.0.0.1:8080/login", {
-        password: userData.password,
-        email: userData.email,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/login`,
+        {
+          password: userData.password,
+          email: userData.email,
+        }
+      );
       return response.data.user; // Return response data of user only
     } catch (error) {
       //return rejectWithValue(error.response.data); // Handle error properly
@@ -49,7 +52,7 @@ export const sendVerification = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/sendVerification",
+        `${process.env.REACT_APP_API_BASE_URL}/sendVerification`,
         {
           email: userData.email,
         }
@@ -67,7 +70,7 @@ export const verifyOtp = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/verifyOtp",
+        `${process.env.REACT_APP_API_BASE_URL}/verifyOtp`,
         userData
       );
       return response.data.user;
@@ -81,7 +84,9 @@ export const verifyOtp = createAsyncThunk(
 
 export const logout = createAsyncThunk("usersInfo/logout", async (userData) => {
   try {
-    const response = await axios.post("http://127.0.0.1:8080/logout");
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/logout`
+    );
     return {};
   } catch (error) {
     console.log(error);
@@ -92,10 +97,13 @@ export const setNewPass = createAsyncThunk(
   "usersInfo/setNewPass",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.put("http://127.0.0.1:8080/setNewPass", {
-        password: userData.password,
-        email: userData.email,
-      });
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/setNewPass`,
+        {
+          password: userData.password,
+          email: userData.email,
+        }
+      );
       return response.data.user; // Return response data of user only
     } catch (error) {
       return rejectWithValue(error.response.data); // Handle error properly
@@ -108,7 +116,7 @@ export const deleteUser = createAsyncThunk(
   async (userID) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8080/deleteUser/${userID}`
+        `${process.env.REACT_APP_API_BASE_URL}/deleteUser/${userID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {
@@ -121,7 +129,7 @@ export const updateUser = createAsyncThunk(
   async (userDatas, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "http://127.0.0.1:8080/updateUser",
+        `${process.env.REACT_APP_API_BASE_URL}/updateUser`,
         userDatas
       );
       return response.data.user; // Return response data on success

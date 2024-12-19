@@ -14,7 +14,7 @@ export const addBookings = createAsyncThunk(
   async (bookingData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/addBookings",
+        `${process.env.REACT_APP_API_BASE_URL}/addBookings`,
         bookingData
       );
       return response.data; // Return response data on success
@@ -25,7 +25,9 @@ export const addBookings = createAsyncThunk(
 );
 export const GetBooking = createAsyncThunk("bookings/GetBooking", async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:8080/GetBooking");
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/GetBooking`
+    );
     return response.data.Booking; // Return response data on success
   } catch (error) {
     return error.response.data; // Handle error properly
@@ -36,7 +38,7 @@ export const deleteBooking = createAsyncThunk(
   async (BookingID) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8080/deleteBooking/${BookingID}`
+        `${process.env.REACT_APP_API_BASE_URL}/deleteBooking/${BookingID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {

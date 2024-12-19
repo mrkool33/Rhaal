@@ -14,7 +14,7 @@ export const addItems = createAsyncThunk(
   async (itemData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/addItems",
+        `${process.env.REACT_APP_API_BASE_URL}/addItems`,
         itemData
       );
       return response.data; // Return response data on success
@@ -25,7 +25,9 @@ export const addItems = createAsyncThunk(
 );
 export const GetItem = createAsyncThunk("items/GetItem", async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:8080/GetItem");
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/GetItem`
+    );
     return response.data.Item; // Return response data on success
   } catch (error) {
     return error.response.data; // Handle error properly
@@ -36,7 +38,7 @@ export const deleteItem = createAsyncThunk(
   async (ItemID) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8080/deleteItem/${ItemID}`
+        `${process.env.REACT_APP_API_BASE_URL}/deleteItem/${ItemID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {
