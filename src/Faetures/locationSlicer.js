@@ -14,7 +14,7 @@ export const addLocation = createAsyncThunk(
   async (locationData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/inserLocation",
+        "https://rhaal.onrender.com/inserLocation",
         locationData
       );
       return response.data; // Return response data on success
@@ -27,7 +27,9 @@ export const GetLocation = createAsyncThunk(
   "locations/GetLocation",
   async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8080/GetLocation");
+      const response = await axios.get(
+        "https://rhaal.onrender.com/GetLocation"
+      );
       return response.data.location; // Return response data on success
     } catch (error) {
       return error.response.data; // Handle error properly
@@ -39,7 +41,7 @@ export const deleteLocation = createAsyncThunk(
   async (locationID) => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8080/deleteLocation/${locationID}`
+        `https://rhaal.onrender.com/deleteLocation/${locationID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {
@@ -52,7 +54,7 @@ export const updateLocation = createAsyncThunk(
   async (locationDatas, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "http://127.0.0.1:8080/updateLocation",
+        "https://rhaal.onrender.com/updateLocation",
         locationDatas
       );
       return response.data.location; // Return response data on success
