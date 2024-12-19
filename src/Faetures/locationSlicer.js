@@ -14,7 +14,7 @@ export const addLocation = createAsyncThunk(
   async (locationData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/inserLocation`,
+        "http://127.0.0.1:8080/inserLocation",
         locationData
       );
       return response.data; // Return response data on success
@@ -27,9 +27,7 @@ export const GetLocation = createAsyncThunk(
   "locations/GetLocation",
   async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/GetLocation`
-      );
+      const response = await axios.get("http://127.0.0.1:8080/GetLocation");
       return response.data.location; // Return response data on success
     } catch (error) {
       return error.response.data; // Handle error properly
@@ -41,7 +39,7 @@ export const deleteLocation = createAsyncThunk(
   async (locationID) => {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/deleteLocation/${locationID}`
+        `http://127.0.0.1:8080/deleteLocation/${locationID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {
@@ -54,7 +52,7 @@ export const updateLocation = createAsyncThunk(
   async (locationDatas, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/updateLocation`,
+        "http://127.0.0.1:8080/updateLocation",
         locationDatas
       );
       return response.data.location; // Return response data on success
