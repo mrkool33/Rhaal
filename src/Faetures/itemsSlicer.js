@@ -14,7 +14,7 @@ export const addItems = createAsyncThunk(
   async (itemData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://rhaal.onrender.com/addItems",
+        "https://rhaal-server.onrender.com/addItems",
         itemData
       );
       return response.data; // Return response data on success
@@ -25,7 +25,9 @@ export const addItems = createAsyncThunk(
 );
 export const GetItem = createAsyncThunk("items/GetItem", async () => {
   try {
-    const response = await axios.get("https://rhaal.onrender.com/GetItem");
+    const response = await axios.get(
+      "https://rhaal-server.onrender.com/GetItem"
+    );
     return response.data.Item; // Return response data on success
   } catch (error) {
     return error.response.data; // Handle error properly
@@ -36,7 +38,7 @@ export const deleteItem = createAsyncThunk(
   async (ItemID) => {
     try {
       const response = await axios.delete(
-        `https://rhaal.onrender.com/deleteItem/${ItemID}`
+        `https://rhaal-server.onrender.com/deleteItem/${ItemID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {

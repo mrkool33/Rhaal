@@ -14,7 +14,7 @@ export const addLocation = createAsyncThunk(
   async (locationData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://rhaal.onrender.com/inserLocation",
+        "https://rhaal-server.onrender.com/inserLocation",
         locationData
       );
       return response.data; // Return response data on success
@@ -28,7 +28,7 @@ export const GetLocation = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "https://rhaal.onrender.com/GetLocation"
+        "https://rhaal-server.onrender.com/GetLocation"
       );
       return response.data.location; // Return response data on success
     } catch (error) {
@@ -41,7 +41,7 @@ export const deleteLocation = createAsyncThunk(
   async (locationID) => {
     try {
       const response = await axios.delete(
-        `https://rhaal.onrender.com/deleteLocation/${locationID}`
+        `https://rhaal-server.onrender.com/deleteLocation/${locationID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {
@@ -54,7 +54,7 @@ export const updateLocation = createAsyncThunk(
   async (locationDatas, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "https://rhaal.onrender.com/updateLocation",
+        "https://rhaal-server.onrender.com/updateLocation",
         locationDatas
       );
       return response.data.location; // Return response data on success

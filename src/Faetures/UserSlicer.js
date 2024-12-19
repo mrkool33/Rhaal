@@ -19,7 +19,7 @@ export const addUser = createAsyncThunk(
   async (userDatas, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://rhaal.onrender.com/inserUser",
+        "https://rhaal-server.onrender.com/inserUser",
         userDatas
       );
       return response.data; // Return response data on success
@@ -33,10 +33,13 @@ export const GetUser = createAsyncThunk(
   "usersInfo/GetUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://rhaal.onrender.com/login", {
-        password: userData.password,
-        email: userData.email,
-      });
+      const response = await axios.post(
+        "https://rhaal-server.onrender.com/login",
+        {
+          password: userData.password,
+          email: userData.email,
+        }
+      );
       return response.data.user; // Return response data of user only
     } catch (error) {
       //return rejectWithValue(error.response.data); // Handle error properly
@@ -49,7 +52,7 @@ export const sendVerification = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://rhaal.onrender.com/sendVerification",
+        "https://rhaal-server.onrender.com/sendVerification",
         {
           email: userData.email,
         }
@@ -67,7 +70,7 @@ export const verifyOtp = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://rhaal.onrender.com/verifyOtp",
+        "https://rhaal-server.onrender.com/verifyOtp",
         userData
       );
       return response.data.user;
@@ -81,7 +84,9 @@ export const verifyOtp = createAsyncThunk(
 
 export const logout = createAsyncThunk("usersInfo/logout", async (userData) => {
   try {
-    const response = await axios.post("https://rhaal.onrender.com/logout");
+    const response = await axios.post(
+      "https://rhaal-server.onrender.com/logout"
+    );
     return {};
   } catch (error) {
     console.log(error);
@@ -93,7 +98,7 @@ export const setNewPass = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "https://rhaal.onrender.com/setNewPass",
+        "https://rhaal-server.onrender.com/setNewPass",
         {
           password: userData.password,
           email: userData.email,
@@ -111,7 +116,7 @@ export const deleteUser = createAsyncThunk(
   async (userID) => {
     try {
       const response = await axios.delete(
-        `https://rhaal.onrender.com/deleteUser/${userID}`
+        `https://rhaal-server.onrender.com/deleteUser/${userID}`
       );
       return response.data.message; // Return response data of user only
     } catch (error) {
@@ -124,7 +129,7 @@ export const updateUser = createAsyncThunk(
   async (userDatas, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "https://rhaal.onrender.com/updateUser",
+        "https://rhaal-server.onrender.com/updateUser",
         userDatas
       );
       return response.data.user; // Return response data on success
