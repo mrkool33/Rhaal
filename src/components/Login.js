@@ -104,9 +104,9 @@ const SignIn = () => {
                   />
                 </div>
               </Form.Group>
-              <a href="/forgot-password" className="forgot-password">
+              <Link to="/forgot-password" className="forgot-password">
                 Forgot Password?
-              </a>
+              </Link>
               <button
                 className="signin-button"
                 onClick={submitForm(handleSubmit)}
@@ -115,14 +115,12 @@ const SignIn = () => {
               </button>
               <FormGroup className="signup-checkbox-group">
                 <Label check className="signup-checkbox-label">
-                  <Link to="signup">
-                    <span className="signup-text">
-                      Don’t have an account?{" "}
-                      <a href="" className="signup-link">
-                        Sign up now
-                      </a>
-                    </span>
-                  </Link>
+                  <span className="signup-text">
+                    Don’t have an account?{" "}
+                    <Link to="/signup" className="signup-link">
+                      Sign up now
+                    </Link>
+                  </span>
                 </Label>
               </FormGroup>
             </Form>
