@@ -5,7 +5,7 @@ import rectangleImage from "../assets/Rectangle.png"; // Replace with your recta
 import logo from "../assets/logo.png"; // Replace with your logo path
 import "./Login.css";
 import { Label } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginValidations } from "../Validations/LoginValidations.js";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -115,12 +115,14 @@ const SignIn = () => {
               </button>
               <FormGroup className="signup-checkbox-group">
                 <Label check className="signup-checkbox-label">
-                  <span className="signup-text">
-                    Don’t have an account?{" "}
-                    <a onClick={navigate("/signup")} className="signup-link">
-                      Sign up now
-                    </a>
-                  </span>
+                  <Link to="signup">
+                    <span className="signup-text">
+                      Don’t have an account?{" "}
+                      <a href="" className="signup-link">
+                        Sign up now
+                      </a>
+                    </span>
+                  </Link>
                 </Label>
               </FormGroup>
             </Form>
