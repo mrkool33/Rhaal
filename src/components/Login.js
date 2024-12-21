@@ -112,9 +112,9 @@ const SignIn = () => {
               <Link to="/forgot-password" className="forgot-password">
                 Forgot Password?
               </Link>
-              <Button type="submit" className="signin-button">
+              <button type="submit" className="signin-button">
                 Login
-              </Button>
+              </button>
               {isError && <p className="error">Error: {message}</p>}
               <FormGroup className="signup-checkbox-group">
                 <Label check className="signup-checkbox-label">
