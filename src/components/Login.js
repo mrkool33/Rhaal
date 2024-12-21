@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Form, FormGroup } from "react-bootstrap";
+import { Container, Row, Col, Form, FormGroup, Button } from "react-bootstrap";
 import illustration from "../assets/illustration2.png"; // Replace with your illustration path
 import rectangleImage from "../assets/Rectangle.png"; // Replace with your rectangle image path
 import logo from "../assets/logo.png"; // Replace with your logo path
@@ -15,37 +15,40 @@ import { useState } from "react";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 const SignIn = () => {
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  let navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
-  const { user, isSuccess, isError, message } = useSelector(
+  const navigate = useNavigate();
+
+  const { isSuccess, isError, message } = useSelector(
     (state) => state.usersInfo
   );
 
   const {
     register,
-    handleSubmit: submitForm,
+    handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(LoginValidations) });
+  } = useForm({
+    resolver: yupResolver(LoginValidations),
+  });
 
-  const handleSubmit = () => {
-    const user = { email: email, password: password };
-    dispatch(GetUser(user));
+  const onSubmit = (data) => {
+    dispatch(GetUser(data))
+      .unwrap()
+      .catch((errorMessage) => {
+        console.error("Login failed:", errorMessage);
+      });
   };
+
   useEffect(() => {
-    if (user && isSuccess && message === "login") {
+    if (isSuccess && message === "login") {
       navigate("/");
     }
-    if (isError) {
-      navigate("/login");
-    }
-  }, [isSuccess, isError, user, message, navigate]);
-
+  }, [isSuccess, message, navigate]);
   const handleBack = () => {
     navigate("/");
   };
-
   return (
     <>
       <div
@@ -71,21 +74,22 @@ const SignIn = () => {
           >
             <img src={logo} alt="Logo" className="logo" />
             <h2 className="welcome-title">Welcome Back!!</h2>
-            <Form className="form-container">
+            <Form className="form-container" onSubmit={handleSubmit(onSubmit)}>
               <Form.Group controlId="formEmail" className="mb-4">
                 <Form.Label className="form-label-left">Email</Form.Label>
                 <div className="input-icon">
                   <i className="fas fa-envelope"></i>
                   <Form.Control
                     type="email"
-                    placeholder="email@gmail.com"
-                    className="inputBox"
-                    {...register("email", {
-                      // value:{email},
-                      onChange: (e) => setEmail(e.target.value),
-                    })}
+                    placeholder="Enter your email"
+                    className={errors.email ? "is-invalid" : ""}
+                    {...register("email")}
+                    onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
+                  <div className="invalid-feedback">
+                    {errors.email?.message}
+                  </div>
                 </div>
               </Form.Group>
               <Form.Group controlId="formPassword" className="mb-4">
@@ -95,24 +99,23 @@ const SignIn = () => {
                   <Form.Control
                     type="password"
                     placeholder="Enter your password"
-                    className="inputBox"
-                    {...register("password", {
-                      // value:{password},
-                      onChange: (e) => setPassword(e.target.value),
-                    })}
+                    className={errors.password ? "is-invalid" : ""}
+                    {...register("password")}
+                    onChange={(e) => setPassword(e.target.value)}
                     value={password}
                   />
+                  <div className="invalid-feedback">
+                    {errors.password?.message}
+                  </div>
                 </div>
               </Form.Group>
               <Link to="/forgot-password" className="forgot-password">
                 Forgot Password?
               </Link>
-              <button
-                className="signin-button"
-                onClick={submitForm(handleSubmit)}
-              >
+              <Button type="submit" className="signin-button">
                 Login
-              </button>
+              </Button>
+              {isError && <p className="error">Error: {message}</p>}
               <FormGroup className="signup-checkbox-group">
                 <Label check className="signup-checkbox-label">
                   <span className="signup-text">
