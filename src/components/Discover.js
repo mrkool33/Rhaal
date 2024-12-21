@@ -45,14 +45,15 @@ const Discover = () => {
               <h1 className="header-title">
                 Discover Natural Therapeutic in Oman
               </h1>
+              {/* 
               <Form className="search-form">
                 <Form.Control
                   type="text"
                   placeholder="Search destinations"
                   className="search-input"
                 />
-                <Button className="search-button">Search</Button>
-              </Form>
+                 <Button className="search-button">Search</Button>
+              </Form>*/}
             </Container>
           </div>
         </div>
@@ -147,8 +148,8 @@ const Discover = () => {
             ))}
           </Row>
         </Container>
-         {/* Caves Destinations Section */}
-         <Container className="content-section">
+        {/* Caves Destinations Section */}
+        <Container className="content-section">
           <br /> <br />
           <h3 className="section-title">Desert nature</h3>
           <Row>
