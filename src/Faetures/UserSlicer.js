@@ -42,11 +42,8 @@ export const GetUser = createAsyncThunk(
       );
       return response.data.user; // Return response data of user only
     } catch (error) {
-      if (error.response && error.response.data) {
-        // Pass the server error message to the thunk rejection
-        return rejectWithValue(error.response.data.message);
-      }
-      return rejectWithValue("An unknown error occurred. Please try again.");
+      //return rejectWithValue(error.response.data); // Handle error properly
+      alert("invalid crednashals" + error);
     }
   }
 );
